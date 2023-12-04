@@ -1,8 +1,8 @@
-import boardgame.Position;
+import chess.ChessMath;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Position pos = new Position(3, 5);
-        System.out.println(pos);
+        ChessMath chessMatch = new ChessMath();
+        UI.printBoard(chessMatch.getPieces());
     }
 }

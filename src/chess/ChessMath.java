@@ -9,6 +9,7 @@ import chess.pieces.Rook;
 public class ChessMath {
   // tabuleiro
   private Board board;
+
   public ChessMath() {
     board = new Board(8, 8);
     initialSetup();
@@ -30,6 +31,7 @@ public class ChessMath {
     Position source = sourcPosition.toPosition();
     Position target = targetPosition.toPosition();
     validateSourcePosition(source);
+    validateTargetPosition(source, target);
     Piece capturedPiece = makeMove(source, target);
     return (ChessPiece) capturedPiece;
   }
@@ -40,7 +42,7 @@ public class ChessMath {
     Piece caputuredPiece = board.removePiece(target);
     board.placePiece(p, target);
     return caputuredPiece;
-  } 
+  }
 
   private void validateSourcePosition(Position position) {
     if (!board.thereIsAPiece(position)) {
@@ -49,6 +51,12 @@ public class ChessMath {
 
     if (!board.piece(position).isThereAnyPossibleMove()) {
       throw new ChessException("There is no possible moves for the chosen piece");
+    }
+  }
+
+  private void validateTargetPosition(Position source, Position target) {
+    if (!board.piece(source).possibleMove(target)) {
+      throw new ChessException("The chosen piece can't move to target position");
     }
   }
 
